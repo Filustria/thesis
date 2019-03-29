@@ -1,0 +1,142 @@
+# Patients Data Wrangling
+
+
+```{r setup, include=FALSE}
+setwd("G:\\extracao\\bancos_workspace")
+
+library(tidyverse)
+library(lubridate)
+
+load('extracao1_prime_cap31.RData')
+corrigido <- read.csv("sexo_corrigido.csv", header = TRUE, sep = ";", dec = ",")
+```
+
+
+
+
+1. Extraction from SQL-DB
+
+The SQL-DB extraction contain the following information:
+
+1. "NOME_PROF" - Name of the professional that made the visit and inputed the information
+2. "CBO" - Brazilian code for professional chategories
+3. "ATENDIMENTO_ID" - visit ID
+4. "DATA_CONSULTA" - date of the visit
+5. "MOTIVO_ICPC" - ICPC code
+6. "MOTIVO_OBSERVACOES" - reason for the appointment (open text)
+7. "cid10" - ICD 10
+8. "medicamento" - drugs prescription
+9. "material_exame" - blood tests
+10. "PACIENTE_ID" - patient's ID
+11. "NOME_PAC" - patient's name
+12. "DATA_NASC" - date of birth
+13. "SEXO" - sex
+14. "CNES" - clinic code
+15. "NOME_UNIDADE" - name of the clinic
+
+
+
+Some patients had their information about 'SEX' missing. 98 patients had this information inputed 'by hand'.
+
+```{r}
+
+base <- banco31b %>% drop_na(PACIENTE_ID, DATA_CONSULTA) # 342 linhas vazias
+
+comsexo <- base %>% filter(SEXO != 'I') # pacientes com sexo definido
+semsexo <- base %>% filter(SEXO == 'I') # pacientes com sexo definido
+
+
+# Fazendo o append dos pacientes, agora com o sexo definido.
+base <- rbind(comsexo, corrigido)
+base$SEXO <- as.factor(ifelse(base$SEXO == 'M', 'M', 'F'))
+
+summary(base$SEXO)
+
+```
+
+Now we have 3.723.188 visits for women and 1.693.804 for men.
+
+
+
+2. Date of birth and Age
+
+The information about date of birth was converted from as.character to as.Date and age was calculated using the last day that we have information inputed in th system - "2018-11-08"
+
+```{r}
+
+base$DATA_NASC <- as.Date(base$DATA_NASC, "%d/%m/%Y")
+base$idade <- round(as.numeric(difftime("2018-11-08", base$DATA_NASC, units = c("days"))/365.25),1)
+
+base$DATA_CONSULTA <- as.Date(base$DATA_CONSULTA, "%d/%m/%Y")
+
+base %>% 
+  group_by(SEXO) %>% 
+  summarise(mean = mean(idade), 
+            sd = sd(idade))
+
+```
+
+3. Building DAY, WEEK and MONTH variables
+
+For Pannel Data analysis we'll need to cathegorize day, week and month of information. It was calculated by the difference between the date inputed for the visit and the first day inputed in the system - min(base$DATA_CONSULTA) - which is "2011-12-05"
+
+```{r}
+
+startdate <- min(base$DATA_CONSULTA)
+base$dia  <- as.numeric(difftime(base$DATA_CONSULTA, startdate, units="days") + 1)
+base$semana  <- as.numeric(trunc(difftime(base$DATA_CONSULTA, startdate, units="weeks") + 1))
+base <- base %>% group_by(mes = floor_date(DATA_CONSULTA, "month"))
+
+max(base$dia)
+max(base$semana)
+
+```
+
+We have now 2531 days of work, 362 weeks in 6.9 years of information. The 'mes' is a as.Date variable where all consultations in a month were group in the same first day of the month in order to compare consultations in the same month and make it incremental.
+
+4. Last date
+
+The variable 'ultima' will mark the Date of the last appointment the patient had.
+
+```{r}
+## Data da última consulta
+base <- base %>%
+  group_by(PACIENTE_ID) %>%
+  mutate(ultima = max(DATA_CONSULTA))
+
+```
+
+
+5. Fixing doctors names
+
+Double entry of some names in the system. Probably some patients can have irt as well.
+
+```{r}
+
+
+base$NOME_PROF[base$NOME_PROF == '3117 - ADICEA DE SOUZA FERREIRA'] <- 'ADICEA DE SOUZA FERREIRA'
+base$NOME_PROF[base$NOME_PROF == '2888 - SANDRO DA SILVA PRINSCESWAL'] <- 'SANDRO DA SILVA PRINSCESWAL'
+base$NOME_PROF[base$NOME_PROF == 'LUCAS GALHADO DE ARAUJO'] <- 'LUCAS GALHARDO DE ARAUJO'
+base$NOME_PROF[base$NOME_PROF == 'PEDRO DE GALES PERPETUO ROCHA PITTA'] <- 'PEDRO DE GALES PERPETUO ROCHA PITTA SAMPAIO'
+```
+
+6. Subsetting only doctors consultations
+
+Still need to double-check with the information from Viva Rio.
+
+```{r}
+
+medicas <- base %>% 
+  select(everything()) %>% 
+  filter(CBO == '225130' | CBO == '225142' | CBO == '2231F8' | CBO == '2231F9')
+
+
+```
+
+7. What do I need to do yet
+
+
+1. Fix information about the clinic where the visit took place, eg, CF Fellipe Cardoso and CF Klebel
+2. Check for douplicates in patients names, but I'll need to do it manually
+3. Fix information about date of birth. Some patients are 180 years-old.
+

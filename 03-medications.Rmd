@@ -1,0 +1,231 @@
+# Drugs prescribed in Primary Care in Rio de Janeiro
+
+
+
+
+```{r}
+
+load('t.RData')
+library(tidyverse)
+library(glue)
+```
+
+1. HMG-CoA reductase inhibitors
+
+
+```{r}
+
+ggplot(t, aes(x = mes, y = mest)) + 
+  geom_point(aes(color = as.factor(MFC), fill = as.factor(MFC)), 
+             alpha = 1, position = position_dodge(1)) +
+  stat_smooth(data = subset(t, as.factor(MFC) == 1), method = "lm", se = T, color = "#bb5a00",
+              formula = y ~ splines::ns(x, 7)) +
+  stat_smooth(data = subset(t, as.factor(MFC) == 0), method = "lm", se = T, color = "#0c005b",
+              formula = y ~ splines::ns(x, 7)) +
+  scale_color_manual(values = c("#00AFBB", "#E7B800")) +
+  scale_fill_manual(values = c("#00AFBB", "#E7B800")) +
+  labs(x = "Years",
+       y = "Rate of prescription for 100 visits",
+       title = "Prescription of HMG-CoA reductase inhibitors in Rio de Janeiro, AP 3.1",
+       subtitle = "Comparison of rate of prescriptions between Family Physicians (yellow) and Generalists (blue)")
+
+```
+
+
+2. Amoxicilin
+
+
+```{r}
+
+ggplot(t, aes(x = mes, y = mamox)) + 
+  geom_point(aes(color = as.factor(MFC), fill = as.factor(MFC)), 
+             alpha = 1, position = position_dodge(1)) +
+  stat_smooth(data = subset(t, as.factor(MFC) == 1), method = "lm", se = T, color = "#bb5a00",
+              formula = y ~ splines::ns(x, 4)) +
+  stat_smooth(data = subset(t, as.factor(MFC) == 0), method = "lm", se = T, color = "#0c005b",
+              formula = y ~ splines::ns(x, 4)) +
+  scale_color_manual(values = c("#00AFBB", "#E7B800")) +
+  scale_fill_manual(values = c("#00AFBB", "#E7B800")) +
+  labs(x = "Years",
+       y = "Rate of prescription for 100 visits",
+       title = "Prescription of AMOXICILIN in Rio de Janeiro, AP 3.1",
+       subtitle = "Comparison of rate of prescriptions between Family Physicians (yellow) and Generalists (blue)")
+
+
+```
+
+3. Benzodiazepines
+
+```{r}
+
+
+ggplot(t, aes(x = mes, y = mdiaz)) + 
+  geom_point(aes(color = as.factor(MFC), fill = as.factor(MFC)), 
+             alpha = 1, position = position_dodge(1)) +
+  stat_smooth(data = subset(t, as.factor(MFC) == 1), method = "lm", se = T, color = "#bb5a00",
+              formula = y ~ splines::ns(x, 4)) +
+  stat_smooth(data = subset(t, as.factor(MFC) == 0), method = "lm", se = T, color = "#0c005b",
+              formula = y ~ splines::ns(x, 4)) +
+  scale_color_manual(values = c("#00AFBB", "#E7B800")) +
+  scale_fill_manual(values = c("#00AFBB", "#E7B800")) + 
+  labs(x = "Years",
+       y = "Rate of prescription for 100 visits",
+       title = "Prescription of BENZODIAZEPINES in Rio de Janeiro, AP 3.1",
+       subtitle = "Comparison of rate of prescriptions between Family Physicians (yellow) and Generalists (blue)")
+
+
+```
+
+
+4. Aspirin 100 mg
+
+
+```{r}
+
+ggplot(t, aes(x = mes, y = maas)) + 
+  geom_point(aes(color = as.factor(MFC), fill = as.factor(MFC)), 
+             alpha = 1, position = position_dodge(1)) +
+  stat_smooth(data = subset(t, as.factor(MFC) == 1), method = "lm", se = T, color = "#bb5a00",
+              formula = y ~ splines::ns(x, 4)) +
+  stat_smooth(data = subset(t, as.factor(MFC) == 0), method = "lm", se = T, color = "#0c005b",
+              formula = y ~ splines::ns(x, 4)) +
+  scale_color_manual(values = c("#00AFBB", "#E7B800")) +
+  scale_fill_manual(values = c("#00AFBB", "#E7B800")) +
+  labs(x = "Years",
+       y = "Rate of prescription for 100 visits",
+       title = "Prescription of ASPIRIN 100 MG in Rio de Janeiro, AP 3.1",
+       subtitle = "Comparison of rate of prescriptions between Family Physicians (yellow) and Generalists (blue)")
+
+
+```
+
+5. Tricyclics
+
+
+```{r}
+
+ggplot(t, aes(x = mes, y = mtric)) + 
+  geom_point(aes(color = as.factor(MFC), fill = as.factor(MFC)), 
+             alpha = 1, position = position_dodge(1)) +
+  stat_smooth(data = subset(t, as.factor(MFC) == 1), method = "lm", se = T, color = "#bb5a00",
+              formula = y ~ splines::ns(x, 4)) +
+  stat_smooth(data = subset(t, as.factor(MFC) == 0), method = "lm", se = T, color = "#0c005b",
+              formula = y ~ splines::ns(x, 4)) +
+  scale_color_manual(values = c("#00AFBB", "#E7B800")) +
+  scale_fill_manual(values = c("#00AFBB", "#E7B800")) +
+  labs(x = "Years",
+       y = "Rate of prescription for 100 visits",
+       title = "Prescription of TRICYCLICS in Rio de Janeiro, AP 3.1",
+       subtitle = "Comparison of rate of prescriptions between Family Physicians (yellow) and Generalists (blue)")
+
+
+
+```
+
+
+6. Omeprazole
+
+```{r}
+
+ggplot(t, aes(x = mes, y = momep)) + 
+  geom_point(aes(color = as.factor(MFC), fill = as.factor(MFC)), 
+             alpha = 1, position = position_dodge(1)) +
+  stat_smooth(data = subset(t, as.factor(MFC) == 1), method = "lm", se = T, color = "#bb5a00",
+              formula = y ~ splines::ns(x, 4)) +
+  stat_smooth(data = subset(t, as.factor(MFC) == 0), method = "lm", se = T, color = "#0c005b",
+              formula = y ~ splines::ns(x, 4)) +
+  scale_color_manual(values = c("#00AFBB", "#E7B800")) +
+  scale_fill_manual(values = c("#00AFBB", "#E7B800")) + 
+  labs(x = "Years",
+       y = "Rate of prescription for 100 visits",
+       title = "Prescription of OMEPRAZOLE in Rio de Janeiro, AP 3.1",
+       subtitle = "Comparison of rate of prescriptions between Family Physicians (yellow) and Generalists (blue)")
+
+```
+
+
+7. Azitromicin
+
+```{r}
+
+ggplot(t, aes(x = mes, y = mazi)) + 
+  geom_point(aes(color = as.factor(MFC), fill = as.factor(MFC)), 
+             alpha = 1, position = position_dodge(1)) +
+  stat_smooth(data = subset(t, as.factor(MFC) == 1), method = "lm", se = T, color = "#bb5a00",
+              formula = y ~ splines::ns(x, 4)) +
+  stat_smooth(data = subset(t, as.factor(MFC) == 0), method = "lm", se = T, color = "#0c005b",
+              formula = y ~ splines::ns(x, 4)) +
+  scale_color_manual(values = c("#00AFBB", "#E7B800")) +
+  scale_fill_manual(values = c("#00AFBB", "#E7B800")) +
+  labs(x = "Years",
+       y = "Rate of prescription for 100 visits",
+       title = "Prescription of AZITROMICIN in Rio de Janeiro, AP 3.1",
+       subtitle = "Comparison of rate of prescriptions between Family Physicians (yellow) and Generalists (blue)")
+
+
+```
+
+
+8. Penicillin
+
+```{r}
+
+
+
+ggplot(t, aes(x = mes, y = mpen)) + 
+  geom_point(aes(color = as.factor(MFC), fill = as.factor(MFC)), 
+             alpha = 1, position = position_dodge(1)) +
+  stat_smooth(data = subset(t, as.factor(MFC) == 1), method = "lm", se = T, color = "#bb5a00",
+              formula = y ~ splines::ns(x, 4)) +
+  stat_smooth(data = subset(t, as.factor(MFC) == 0), method = "lm", se = T, color = "#0c005b",
+              formula = y ~ splines::ns(x, 4)) +
+  scale_color_manual(values = c("#00AFBB", "#E7B800")) +
+  scale_fill_manual(values = c("#00AFBB", "#E7B800")) +
+  labs(x = "Years",
+       y = "Rate of prescription for 100 visits",
+       title = "Prescription of PENICILLIN in Rio de Janeiro, AP 3.1",
+       subtitle = "Comparison of rate of prescriptions between Family Physicians (yellow) and Generalists (blue)")
+
+```
+
+9. Quinolones
+
+```{r}
+
+
+ggplot(t, aes(x = mes, y = mquino)) + 
+  geom_point(aes(color = as.factor(MFC), fill = as.factor(MFC)), 
+             alpha = 1, position = position_dodge(1)) +
+  stat_smooth(data = subset(t, as.factor(MFC) == 1), method = "lm", se = T, color = "#bb5a00",
+              formula = y ~ splines::ns(x, 4)) +
+  stat_smooth(data = subset(t, as.factor(MFC) == 0), method = "lm", se = T, color = "#0c005b",
+              formula = y ~ splines::ns(x, 4)) +
+  scale_color_manual(values = c("#00AFBB", "#E7B800")) +
+  scale_fill_manual(values = c("#00AFBB", "#E7B800")) +
+  labs(x = "Years",
+       y = "Rate of prescription for 100 visits",
+       title = "Prescription of QUINOLONE in Rio de Janeiro, AP 3.1",
+       subtitle = "Comparison of rate of prescriptions between Family Physicians (yellow) and Generalists (blue)")
+
+```
+
+10. Cephalexin
+
+```{r}
+ggplot(t, aes(x = mes, y = mcef)) + 
+  geom_point(aes(color = as.factor(MFC), fill = as.factor(MFC)), 
+             alpha = 1, position = position_dodge(1)) +
+  stat_smooth(data = subset(t, as.factor(MFC) == 1), method = "lm", se = T, color = "#bb5a00",
+              formula = y ~ splines::ns(x, 4)) +
+  stat_smooth(data = subset(t, as.factor(MFC) == 0), method = "lm", se = T, color = "#0c005b",
+              formula = y ~ splines::ns(x, 4)) +
+  scale_color_manual(values = c("#00AFBB", "#E7B800")) +
+  scale_fill_manual(values = c("#00AFBB", "#E7B800")) +
+  labs(x = "Years",
+       y = "Rate of prescription for 100 visits",
+       title = "Prescription of CEPHALEXIN in Rio de Janeiro, AP 3.1",
+       subtitle = "Comparison of rate of prescriptions between Family Physicians (yellow) and Generalists (blue)")
+
+```
+
+

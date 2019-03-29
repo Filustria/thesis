@@ -1,0 +1,62 @@
+# Hospital Admissions
+
+Hospital admissions Data base (hadb) contains information about every hospital admission that happend in a municipal hospital since 2008. Until 2013 there is also information from state and federal hospitals. After this period I'm still waiting for this information from the state secretary of health.
+
+The variables selected for the study are:
+
+
+1. NUMAIH - unique number for each hospital admission record
+2. PROCEDIMENTO - type of procedure required for the patient
+3. BAIXA - date of patient admission
+4. ALTA - date of patient discharge
+5. MUN_HOS - city of the hospital
+6. CNES - unique code for every hospital
+7. MOTIVO_SAIDA - reason for patient discharge
+8. NOME_PACIENTE - name if the patient
+9. SEXO - sex
+10. NASC - date of birth
+11. MUNIC_RES - place of residence (city)
+12. RUARES - place of residence (street)
+13. NUMRES - place of residence (number)
+14. COMPRES - place of residence (apartment)
+15. BAIRES - place of residence (neighbourhood)
+16. UFRES - place of residence (state)
+17. CEPRES - place of residence (postal code)
+18. IDADE - age
+19. NOME_PAI - father's name
+20. NOME_MAE - mother's name
+21. DIAG_PRINC - main ICD-10 code that lead the hospital admission
+22. CIDSE - secondary ICD-10
+23. CIDCO - secondary ICD-10
+24. CIDOB - obstetrics
+
+
+
+```{r setup, include=FALSE}
+
+# install.packages('devtools')
+# devtools::install_github('fulvionedel/csapAIH')
+
+library(csapAIH)
+library(tidyverse)
+library(lubridate)
+library(foreign)
+
+```
+
+```{r}
+load('csaps.RData')
+
+desenhaCSAP(csaps)
+
+```
+
+
+
+
+
+
+
+
+
+

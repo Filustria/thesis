@@ -1,0 +1,396 @@
+# Chronic health conditions measured with the Charlson and Elixhauser Comorbidity indexes
+
+
+```{r setup, include=FALSE}
+
+library(summarytools)
+library(tidyverse)
+library(lubridate)
+library(knitr)
+library(kableExtra)
+library(pander)
+library(DT)
+library(glue)
+
+load('morb.RData')
+
+mulheres <- morb[(morb$SEXO == 'feminino'),]
+homens <- morb[(morb$SEXO == 'masculino'),]
+
+```
+
+
+
+
+
+```{r, echo = FALSE}
+
+morb %>% 
+  group_by(faixa_etaria) %>%
+  select(faixa_etaria, SEXO, CI, ICC, vascular_periferica, AVC, demencia, DPOC, reumatismo, peptica, mild_liver, DMOK, DMcomplica, plegia, 
+         IRC, neoplasia, severe_liver, metastase, SIDA, linfoma, leucemia, HAS,
+         HAScomplicada, dislipidemia, obesidade, anemia, anemia_def, alcool, 
+         drogas, psicoses, depre, arritmia, hipoT, MM) %>%
+  summarise(N = n(),
+            CI = round(mean(CI)*100, 2),
+            ICC = round(mean(ICC)*100, 2), 
+            vascular_periferica = round(mean(vascular_periferica)*100, 2),
+            AVC = round(mean(AVC)*100, 2),
+            demencia = round(mean(demencia)*100, 2),
+            DPOC = round(mean(DPOC)*100, 2),
+            reumatismo = round(mean(reumatismo)*100, 2),
+            peptica = round(mean(peptica)*100, 2),
+            mild_liver = round(mean(mild_liver)*100, 2),
+            DMOK = round(mean(DMOK)*100, 2),
+            DMcomplica = round(mean(DMcomplica)*100, 2),
+            plegia = round(mean(plegia)*100, 2),
+            IRC = round(mean(IRC)*100, 2),
+            neoplasia = round(mean(neoplasia)*100, 2),
+            severe_liver = round(mean(severe_liver)*100, 2),
+            metastase = round(mean(metastase)*100, 2),
+            SIDA = round(mean(SIDA)*100, 2),
+            linfoma = round(mean(linfoma)*100, 2),
+            leucemia = round(mean(leucemia)*100, 2),
+            HAS = round(mean(HAS)*100, 2),
+            HAScomplicada = round(mean(HAScomplicada)*100, 2),
+            dislipidemia = round(mean(dislipidemia)*100, 2),
+            obesidade = round(mean(obesidade)*100, 2),
+            anemia = round(mean(anemia)*100, 2),
+            anemia_def = round(mean(anemia_def)*100, 2),
+            alcool = round(mean(alcool)*100, 2),
+            drogas = round(mean(drogas)*100, 2),
+            psicoses = round(mean(psicoses)*100, 2),
+            depre = round(mean(depre)*100, 2),
+            hipoT = round(mean(hipoT)*100, 2),
+            arritmia = round(mean(arritmia)*100, 2),
+            MM = round(mean(as.integer(MM))*100, 2)-100) -> prevalencias
+
+
+
+mulheres %>% 
+  group_by(faixa_etaria) %>%
+  select(faixa_etaria, SEXO, CI, ICC, vascular_periferica, AVC, demencia, DPOC, reumatismo, peptica, mild_liver, DMOK, DMcomplica, plegia, 
+         IRC, neoplasia, severe_liver, metastase, SIDA, linfoma, leucemia, HAS,
+         HAScomplicada, dislipidemia, obesidade, anemia, anemia_def, alcool, 
+         drogas, psicoses, depre, arritmia, hipoT, MM) %>%
+  summarise(N = n(),
+            CI = round(mean(CI)*100, 2),
+            ICC = round(mean(ICC)*100, 2), 
+            vascular_periferica = round(mean(vascular_periferica)*100, 2),
+            AVC = round(mean(AVC)*100, 2),
+            demencia = round(mean(demencia)*100, 2),
+            DPOC = round(mean(DPOC)*100, 2),
+            reumatismo = round(mean(reumatismo)*100, 2),
+            peptica = round(mean(peptica)*100, 2),
+            mild_liver = round(mean(mild_liver)*100, 2),
+            DMOK = round(mean(DMOK)*100, 2),
+            DMcomplica = round(mean(DMcomplica)*100, 2),
+            plegia = round(mean(plegia)*100, 2),
+            IRC = round(mean(IRC)*100, 2),
+            neoplasia = round(mean(neoplasia)*100, 2),
+            severe_liver = round(mean(severe_liver)*100, 2),
+            metastase = round(mean(metastase)*100, 2),
+            SIDA = round(mean(SIDA)*100, 2),
+            linfoma = round(mean(linfoma)*100, 2),
+            leucemia = round(mean(leucemia)*100, 2),
+            HAS = round(mean(HAS)*100, 2),
+            HAScomplicada = round(mean(HAScomplicada)*100, 2),
+            dislipidemia = round(mean(dislipidemia)*100, 2),
+            obesidade = round(mean(obesidade)*100, 2),
+            anemia = round(mean(anemia)*100, 2),
+            anemia_def = round(mean(anemia_def)*100, 2),
+            alcool = round(mean(alcool)*100, 2),
+            drogas = round(mean(drogas)*100, 2),
+            psicoses = round(mean(psicoses)*100, 2),
+            depre = round(mean(depre)*100, 2),
+            hipoT = round(mean(hipoT)*100, 2),
+            arritmia = round(mean(arritmia)*100, 2),
+            MM = round(mean(as.integer(MM))*100, 2)-100) -> pmulheres
+
+
+
+
+homens %>% 
+  group_by(faixa_etaria) %>%
+  select(faixa_etaria, SEXO, CI, ICC, vascular_periferica, AVC, demencia, DPOC, reumatismo, peptica, mild_liver, DMOK, DMcomplica, plegia, 
+         IRC, neoplasia, severe_liver, metastase, SIDA, linfoma, leucemia, HAS,
+         HAScomplicada, dislipidemia, obesidade, anemia, anemia_def, alcool, 
+         drogas, psicoses, depre, arritmia, hipoT, MM) %>%
+  summarise(N = n(),
+            CI = round(mean(CI)*100, 2),
+            ICC = round(mean(ICC)*100, 2), 
+            vascular_periferica = round(mean(vascular_periferica)*100, 2),
+            AVC = round(mean(AVC)*100, 2),
+            demencia = round(mean(demencia)*100, 2),
+            DPOC = round(mean(DPOC)*100, 2),
+            reumatismo = round(mean(reumatismo)*100, 2),
+            peptica = round(mean(peptica)*100, 2),
+            mild_liver = round(mean(mild_liver)*100, 2),
+            DMOK = round(mean(DMOK)*100, 2),
+            DMcomplica = round(mean(DMcomplica)*100, 2),
+            plegia = round(mean(plegia)*100, 2),
+            IRC = round(mean(IRC)*100, 2),
+            neoplasia = round(mean(neoplasia)*100, 2),
+            severe_liver = round(mean(severe_liver)*100, 2),
+            metastase = round(mean(metastase)*100, 2),
+            SIDA = round(mean(SIDA)*100, 2),
+            linfoma = round(mean(linfoma)*100, 2),
+            leucemia = round(mean(leucemia)*100, 2),
+            HAS = round(mean(HAS)*100, 2),
+            HAScomplicada = round(mean(HAScomplicada)*100, 2),
+            dislipidemia = round(mean(dislipidemia)*100, 2),
+            obesidade = round(mean(obesidade)*100, 2),
+            anemia = round(mean(anemia)*100, 2),
+            anemia_def = round(mean(anemia_def)*100, 2),
+            alcool = round(mean(alcool)*100, 2),
+            drogas = round(mean(drogas)*100, 2),
+            psicoses = round(mean(psicoses)*100, 2),
+            depre = round(mean(depre)*100, 2),
+            hipoT = round(mean(hipoT)*100, 2),
+            arritmia = round(mean(arritmia)*100, 2),
+            MM = round(mean(as.integer(MM))*100, 2)-100) -> phomens
+
+```
+
+
+```{r}
+
+datatable(prevalencias, caption = "Table 1: Multimorbidity in Rio de Janeiro, 2018", class = 'cell-border stripe', filter = 'top', options = list(
+  pageLength = 10, autoWidth = FALSE), rownames = FALSE) # %>% formatRound(columns = c("ICC", "MM"))
+
+```
+
+
+
+Tabela com as preval?ncias de cada problema de sa?de por faixas et?rias na regi?o da CAP 3.1.
+
+1. Cardiovascular diseases
+
+
+```{r, echo=F}
+
+prevalencias %>% 
+   select(faixa_etaria, N, HAS, HAScomplicada, CI, ICC, AVC, vascular_periferica, arritmia) -> cardiovascular
+
+pmulheres %>% 
+   select(faixa_etaria, N, HAS, HAScomplicada, CI, ICC, AVC, vascular_periferica, arritmia) -> cardiomulheres
+
+phomens %>% 
+   select(faixa_etaria, N, HAS, HAScomplicada, CI, ICC, AVC, vascular_periferica, arritmia) -> cardiohomens
+
+names(cardiovascular) <- c("Age", "Total", "HT", "Secondary HT", "IHD", "Heart Failure", "Stroke", "PAD", "Arrithmias")
+names(cardiomulheres) <- c("Age", "Total Women", "HT", "Secondary HT", "IHD", "Heart Failure", "Stroke", "PAD", "Arrithmias")
+names(cardiohomens) <- c("Age", "Total Men", "HT", "Secondary HT", "IHD", "Heart Failure", "Stroke", "PAD", "Arrithmias")
+
+kable(cardiovascular) %>%
+  kable_styling(bootstrap_options = "striped", full_width = F, position = "left")
+
+kable(cardiomulheres) %>%
+  kable_styling(bootstrap_options = "striped", full_width = F, position = "left")
+
+kable(cardiohomens) %>%
+  kable_styling(bootstrap_options = "striped", full_width = F, position = "left")
+
+```
+
+
+2. Cardiovascular risk factors
+
+
+```{r, echo=F}
+
+prevalencias %>% 
+   select(faixa_etaria, N, obesidade, dislipidemia) -> fatores_risco
+
+names(fatores_risco) <- c("Age", "Total", "Obesity", "Dislipidemia")
+
+kable(fatores_risco) %>%
+  kable_styling(bootstrap_options = "striped", full_width = F, position = "left")
+
+```
+
+
+
+
+3. Diabetes Mellitus with and without complications
+
+
+```{r, echo=F}
+
+prevalencias %>% 
+   select(faixa_etaria, N, DMOK, DMcomplica) -> diabetes
+
+names(diabetes) <- c("Age", "Total", "T2DM", "T2DM & complications")
+
+kable(diabetes) %>%
+  kable_styling(bootstrap_options = "striped", full_width = F, position = "left")
+
+```
+
+4. Cancer
+
+```{r, echo=F}
+
+prevalencias %>% 
+   select(faixa_etaria, N, neoplasia, metastase, linfoma, leucemia) -> cancer
+
+names(cancer) <- c("Age", "Total", "Cancer", "Methastasis", "Linfoma", "Leucemia")
+
+kable(cancer) %>%
+  kable_styling(bootstrap_options = "striped", full_width = F, position = "left")
+
+```
+
+5. Liver diseases
+
+
+```{r, echo=F}
+
+prevalencias %>% 
+   select(faixa_etaria, N, mild_liver, severe_liver) -> figado
+
+names(figado) <- c("Age", "Total", "Mild liver disease", "Severe liver disease")
+
+kable(figado) %>%
+  kable_styling(bootstrap_options = "striped", full_width = F, position = "left")
+
+```
+
+6. Mental health, alcohol and drug abuse
+
+
+```{r, echo=F}
+
+prevalencias %>% 
+   select(faixa_etaria, N, psicoses, depre, alcool, drogas) -> mental
+
+names(mental) <- c("Age", "Total", "Psichosis", "Depression", "Alcohol abuse", "Drug adiction")
+
+kable(mental) %>%
+  kable_styling(bootstrap_options = "striped", full_width = F, position = "left")
+
+```
+
+
+7. HIV, Dementia, CPOD, Asthma, Kidney Failure, Hypothyreoidism and Plegias
+
+
+```{r, echo=F}
+
+prevalencias %>% 
+   select(faixa_etaria, N, SIDA, demencia, DPOC, IRC, plegia, hipoT) -> outras
+
+names(outras) <- c("Age", "Total", "HIV & AIDS", "Dementia", "COPD & Asthma", "Renal Failure", "Plegias", "Hypothyreoidism")
+
+kable(outras) %>%
+  kable_styling(bootstrap_options = "striped", full_width = F, position = "left")
+
+```
+
+8. Multimorbidity
+
+```{r, echo = FALSE}
+
+
+prevalencias %>% 
+   select(faixa_etaria, N, MM) -> mm
+
+names(mm) <- c("Age", "Total", "Multimorbidity")
+
+kable(mm) %>%
+  kable_styling(bootstrap_options = "striped", full_width = F, position = "left")
+
+
+```
+
+Prevalences measured by gender and age.
+
+```{r}
+
+morb %>% 
+  group_by(SEXO, faixa_etaria) %>%
+  select(faixa_etaria, SEXO, CI, ICC, vascular_periferica, AVC, demencia, DPOC, reumatismo, peptica, mild_liver, DMOK, DMcomplica, plegia, 
+         IRC, neoplasia, severe_liver, metastase, SIDA, linfoma, leucemia, HAS,
+         HAScomplicada, dislipidemia, obesidade, anemia, anemia_def, alcool, 
+         drogas, psicoses, depre, arritmia, hipoT, MM) %>%
+  summarise(N = n(),
+            CI = round(mean(CI)*100, 2),
+            ICC = round(mean(ICC)*100, 2), 
+            vascular_periferica = round(mean(vascular_periferica)*100, 2),
+            AVC = round(mean(AVC)*100, 2),
+            demencia = round(mean(demencia)*100, 2),
+            DPOC = round(mean(DPOC)*100, 2),
+            reumatismo = round(mean(reumatismo)*100, 2),
+            peptica = round(mean(peptica)*100, 2),
+            mild_liver = round(mean(mild_liver)*100, 2),
+            DMOK = round(mean(DMOK)*100, 2),
+            DMcomplica = round(mean(DMcomplica)*100, 2),
+            plegia = round(mean(plegia)*100, 2),
+            IRC = round(mean(IRC)*100, 2),
+            neoplasia = round(mean(neoplasia)*100, 2),
+            severe_liver = round(mean(severe_liver)*100, 2),
+            metastase = round(mean(metastase)*100, 2),
+            SIDA = round(mean(SIDA)*100, 2),
+            linfoma = round(mean(linfoma)*100, 2),
+            leucemia = round(mean(leucemia)*100, 2),
+            HAS = round(mean(HAS)*100, 2),
+            HAScomplicada = round(mean(HAScomplicada)*100, 2),
+            dislipidemia = round(mean(dislipidemia)*100, 2),
+            obesidade = round(mean(obesidade)*100, 2),
+            anemia = round(mean(anemia)*100, 2),
+            anemia_def = round(mean(anemia_def)*100, 2),
+            alcool = round(mean(alcool)*100, 2),
+            drogas = round(mean(drogas)*100, 2),
+            psicoses = round(mean(psicoses)*100, 2),
+            depre = round(mean(depre)*100, 2),
+            hipoT = round(mean(hipoT)*100, 2),
+            arritmia = round(mean(arritmia)*100, 2),
+            MM = round(mean(as.integer(MM))*100, 2)-100) -> teste
+
+kable(teste, caption = "Sexo") %>%
+  kable_styling(bootstrap_options = "striped", full_width = F, position = "left")
+
+library(DT)
+datatable(teste, caption = "Table 1: Multimorbidity in Rio de Janeiro, 2018", class = 'cell-border stripe', filter = 'top', options = list(
+  pageLength = 10, autoWidth = TRUE), rownames = FALSE) %>% formatRound(columns = c("ICC", "MM"))
+
+
+
+```
+
+
+```{r}
+
+morb %>% 
+  group_by(faixa_etaria) %>%
+  select(faixa_etaria, SEXO, ICC, MM) %>%
+  filter(SEXO == "feminino") %>%
+  summarise(N = n(),
+            ICC = round(mean(ICC)*100, 2),
+            MM = round(mean(as.integer(MM))*100, 2)-100) -> testeM
+
+morb %>% 
+  group_by(faixa_etaria) %>%
+  select(faixa_etaria, SEXO, ICC, MM) %>%
+  filter(SEXO == "masculino") %>%
+  summarise(N = n(),
+            ICC = round(mean(ICC)*100, 2),
+            MM = round(mean(as.integer(MM))*100, 2)-100) -> testeH
+
+
+knitr::kable(list(testeM, testeH))
+```
+
+
+
+9. Using 'summarytools' package
+
+Ainda está com problema nesta tabela. 
+
+```{r tabela com summarytools, echo = FALSE}
+
+dfSummary(morb, plain.ascii = FALSE, style = "grid", 
+          graph.magnif = 0.75, valid.col = FALSE, tmp.img.dir = "/tmp")
+
+```
+

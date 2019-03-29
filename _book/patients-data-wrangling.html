@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Chapter 7 Patients Data Wrangling | A Cost-effectiveness analysis of the Family Medicine Vocational trainning initiative for capacity building during the Rio de Janeiro Primary Health Care Reform</title>
+  <meta name="description" content="This is a draft of the Ph.D. thesis">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+
+  <meta property="og:title" content="Chapter 7 Patients Data Wrangling | A Cost-effectiveness analysis of the Family Medicine Vocational trainning initiative for capacity building during the Rio de Janeiro Primary Health Care Reform" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is a draft of the Ph.D. thesis" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 7 Patients Data Wrangling | A Cost-effectiveness analysis of the Family Medicine Vocational trainning initiative for capacity building during the Rio de Janeiro Primary Health Care Reform" />
+  
+  <meta name="twitter:description" content="This is a draft of the Ph.D. thesis" />
+  
+
+<meta name="author" content="Adelson Guaraci Jantsch">
+
+
+<meta name="date" content="2019-03-25">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="hospital-admissions.html">
+<link rel="next" href="references.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Cost-effectiveness analysis of the Family Medicine Vocational trainning initiative for capacity building during the Rio d Janeiro Primary Health Care reform</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> This is a draft of the Ph.D. thesis</a></li>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a></li>
+<li class="chapter" data-level="3" data-path="chronic-health-conditions-measured-with-the-charlson-and-elixhauser-comorbidity-indexes.html"><a href="chronic-health-conditions-measured-with-the-charlson-and-elixhauser-comorbidity-indexes.html"><i class="fa fa-check"></i><b>3</b> Chronic health conditions measured with the Charlson and Elixhauser Comorbidity indexes</a></li>
+<li class="chapter" data-level="4" data-path="drugs-prescribed-in-primary-care-in-rio-de-janeiro.html"><a href="drugs-prescribed-in-primary-care-in-rio-de-janeiro.html"><i class="fa fa-check"></i><b>4</b> Drugs prescribed in Primary Care in Rio de Janeiro</a></li>
+<li class="chapter" data-level="5" data-path="blood-tests-ordered-in-primary-care-in-rio-de-janeiro.html"><a href="blood-tests-ordered-in-primary-care-in-rio-de-janeiro.html"><i class="fa fa-check"></i><b>5</b> Blood tests ordered in Primary Care in Rio de Janeiro</a></li>
+<li class="chapter" data-level="6" data-path="hospital-admissions.html"><a href="hospital-admissions.html"><i class="fa fa-check"></i><b>6</b> Hospital Admissions</a></li>
+<li class="chapter" data-level="7" data-path="patients-data-wrangling.html"><a href="patients-data-wrangling.html"><i class="fa fa-check"></i><b>7</b> Patients Data Wrangling</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">A Cost-effectiveness analysis of the Family Medicine Vocational trainning initiative for capacity building during the Rio de Janeiro Primary Health Care Reform</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="patients-data-wrangling" class="section level1">
+<h1><span class="header-section-number">Chapter 7</span> Patients Data Wrangling</h1>
+<ol style="list-style-type: decimal">
+<li>Extraction from SQL-DB</li>
+</ol>
+<p>The SQL-DB extraction contain the following information:</p>
+<ol style="list-style-type: decimal">
+<li>“NOME_PROF” - Name of the professional that made the visit and inputed the information</li>
+<li>“CBO” - Brazilian code for professional chategories</li>
+<li>“ATENDIMENTO_ID” - visit ID</li>
+<li>“DATA_CONSULTA” - date of the visit</li>
+<li>“MOTIVO_ICPC” - ICPC code</li>
+<li>“MOTIVO_OBSERVACOES” - reason for the appointment (open text)</li>
+<li>“cid10” - ICD 10</li>
+<li>“medicamento” - drugs prescription</li>
+<li>“material_exame” - blood tests</li>
+<li>“PACIENTE_ID” - patient’s ID</li>
+<li>“NOME_PAC” - patient’s name</li>
+<li>“DATA_NASC” - date of birth</li>
+<li>“SEXO” - sex</li>
+<li>“CNES” - clinic code</li>
+<li>“NOME_UNIDADE” - name of the clinic</li>
+</ol>
+<p>Some patients had their information about ‘SEX’ missing. 98 patients had this information inputed ‘by hand’.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">base &lt;-<span class="st"> </span>banco31b <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">drop_na</span>(PACIENTE_ID, DATA_CONSULTA) <span class="co"># 342 linhas vazias</span>
+
+comsexo &lt;-<span class="st"> </span>base <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(SEXO <span class="op">!=</span><span class="st"> &#39;I&#39;</span>) <span class="co"># pacientes com sexo definido</span>
+semsexo &lt;-<span class="st"> </span>base <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(SEXO <span class="op">==</span><span class="st"> &#39;I&#39;</span>) <span class="co"># pacientes com sexo definido</span>
+
+
+<span class="co"># Fazendo o append dos pacientes, agora com o sexo definido.</span>
+base &lt;-<span class="st"> </span><span class="kw">rbind</span>(comsexo, corrigido)
+base<span class="op">$</span>SEXO &lt;-<span class="st"> </span><span class="kw">as.factor</span>(<span class="kw">ifelse</span>(base<span class="op">$</span>SEXO <span class="op">==</span><span class="st"> &#39;M&#39;</span>, <span class="st">&#39;M&#39;</span>, <span class="st">&#39;F&#39;</span>))
+
+<span class="kw">summary</span>(base<span class="op">$</span>SEXO)</code></pre></div>
+<pre><code>##       F       M 
+## 3723188 1693804</code></pre>
+<p>Now we have 3.723.188 visits for women and 1.693.804 for men.</p>
+<ol start="2" style="list-style-type: decimal">
+<li>Date of birth and Age</li>
+</ol>
+<p>The information about date of birth was converted from as.character to as.Date and age was calculated using the last day that we have information inputed in th system - “2018-11-08”</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">base<span class="op">$</span>DATA_NASC &lt;-<span class="st"> </span><span class="kw">as.Date</span>(base<span class="op">$</span>DATA_NASC, <span class="st">&quot;%d/%m/%Y&quot;</span>)
+base<span class="op">$</span>idade &lt;-<span class="st"> </span><span class="kw">round</span>(<span class="kw">as.numeric</span>(<span class="kw">difftime</span>(<span class="st">&quot;2018-11-08&quot;</span>, base<span class="op">$</span>DATA_NASC, <span class="dt">units =</span> <span class="kw">c</span>(<span class="st">&quot;days&quot;</span>))<span class="op">/</span><span class="fl">365.25</span>),<span class="dv">1</span>)
+
+base<span class="op">$</span>DATA_CONSULTA &lt;-<span class="st"> </span><span class="kw">as.Date</span>(base<span class="op">$</span>DATA_CONSULTA, <span class="st">&quot;%d/%m/%Y&quot;</span>)
+
+base <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">group_by</span>(SEXO) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">mean =</span> <span class="kw">mean</span>(idade), 
+            <span class="dt">sd =</span> <span class="kw">sd</span>(idade))</code></pre></div>
+<pre><code>## # A tibble: 2 x 3
+##   SEXO   mean    sd
+##   &lt;fct&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1 F      40.3  21.9
+## 2 M      37.5  26.0</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Building DAY, WEEK and MONTH variables</li>
+</ol>
+<p>For Pannel Data analysis we’ll need to cathegorize day, week and month of information. It was calculated by the difference between the date inputed for the visit and the first day inputed in the system - min(base$DATA_CONSULTA) - which is “2011-12-05”</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">startdate &lt;-<span class="st"> </span><span class="kw">min</span>(base<span class="op">$</span>DATA_CONSULTA)
+base<span class="op">$</span>dia  &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(<span class="kw">difftime</span>(base<span class="op">$</span>DATA_CONSULTA, startdate, <span class="dt">units=</span><span class="st">&quot;days&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="dv">1</span>)
+base<span class="op">$</span>semana  &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(<span class="kw">trunc</span>(<span class="kw">difftime</span>(base<span class="op">$</span>DATA_CONSULTA, startdate, <span class="dt">units=</span><span class="st">&quot;weeks&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="dv">1</span>))
+base &lt;-<span class="st"> </span>base <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(<span class="dt">mes =</span> <span class="kw">floor_date</span>(DATA_CONSULTA, <span class="st">&quot;month&quot;</span>))
+
+<span class="kw">max</span>(base<span class="op">$</span>dia)</code></pre></div>
+<pre><code>## [1] 2531</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">max</span>(base<span class="op">$</span>semana)</code></pre></div>
+<pre><code>## [1] 362</code></pre>
+<p>We have now 2531 days of work, 362 weeks in 6.9 years of information. The ‘mes’ is a as.Date variable where all consultations in a month were group in the same first day of the month in order to compare consultations in the same month and make it incremental.</p>
+<ol start="4" style="list-style-type: decimal">
+<li>Last date</li>
+</ol>
+<p>The variable ‘ultima’ will mark the Date of the last appointment the patient had.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Data da última consulta
+base &lt;-<span class="st"> </span>base <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(PACIENTE_ID) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ultima =</span> <span class="kw">max</span>(DATA_CONSULTA))</code></pre></div>
+<ol start="5" style="list-style-type: decimal">
+<li>Fixing doctors names</li>
+</ol>
+<p>Double entry of some names in the system. Probably some patients can have irt as well.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">base<span class="op">$</span>NOME_PROF[base<span class="op">$</span>NOME_PROF <span class="op">==</span><span class="st"> &#39;3117 - ADICEA DE SOUZA FERREIRA&#39;</span>] &lt;-<span class="st"> &#39;ADICEA DE SOUZA FERREIRA&#39;</span>
+base<span class="op">$</span>NOME_PROF[base<span class="op">$</span>NOME_PROF <span class="op">==</span><span class="st"> &#39;2888 - SANDRO DA SILVA PRINSCESWAL&#39;</span>] &lt;-<span class="st"> &#39;SANDRO DA SILVA PRINSCESWAL&#39;</span>
+base<span class="op">$</span>NOME_PROF[base<span class="op">$</span>NOME_PROF <span class="op">==</span><span class="st"> &#39;LUCAS GALHADO DE ARAUJO&#39;</span>] &lt;-<span class="st"> &#39;LUCAS GALHARDO DE ARAUJO&#39;</span>
+base<span class="op">$</span>NOME_PROF[base<span class="op">$</span>NOME_PROF <span class="op">==</span><span class="st"> &#39;PEDRO DE GALES PERPETUO ROCHA PITTA&#39;</span>] &lt;-<span class="st"> &#39;PEDRO DE GALES PERPETUO ROCHA PITTA SAMPAIO&#39;</span></code></pre></div>
+<ol start="6" style="list-style-type: decimal">
+<li>Subsetting only doctors consultations</li>
+</ol>
+<p>Still need to double-check with the information from Viva Rio.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">medicas &lt;-<span class="st"> </span>base <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">select</span>(<span class="kw">everything</span>()) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(CBO <span class="op">==</span><span class="st"> &#39;225130&#39;</span> <span class="op">|</span><span class="st"> </span>CBO <span class="op">==</span><span class="st"> &#39;225142&#39;</span> <span class="op">|</span><span class="st"> </span>CBO <span class="op">==</span><span class="st"> &#39;2231F8&#39;</span> <span class="op">|</span><span class="st"> </span>CBO <span class="op">==</span><span class="st"> &#39;2231F9&#39;</span>)</code></pre></div>
+<ol start="7" style="list-style-type: decimal">
+<li><p>What do I need to do yet</p></li>
+<li>Fix information about the clinic where the visit took place, eg, CF Fellipe Cardoso and CF Klebel</li>
+<li>Check for douplicates in patients names, but I’ll need to do it manually</li>
+<li><p>Fix information about date of birth. Some patients are 180 years-old.</p></li>
+</ol>
+
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="hospital-admissions.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": ["thesis.pdf", "thesis.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
